@@ -40,7 +40,7 @@ customertrusted_node1700529677557 = glueContext.create_dynamic_frame.from_catalo
 )
 
 # Script generated for node SQL Query
-SqlQuery309 = """
+SqlQuery0 = """
 select customername, email, phone, birthday, serialnumber, registrationdate, lastupdatedate, sharewithresearchasofdate, sharewithpublicasofdate
 from customer
 join accelerometer
@@ -48,7 +48,7 @@ on accelerometer.user = customer.email
 """
 SQLQuery_node1708714281489 = sparkSqlQuery(
     glueContext,
-    query=SqlQuery309,
+    query=SqlQuery0,
     mapping={
         "accelerometer": accelerometerlandingzone_node1700529679236,
         "customer": customertrusted_node1700529677557,
@@ -64,17 +64,15 @@ DropDuplicates_node1708714184661 = DynamicFrame.fromDF(
 )
 
 # Script generated for node customer curated
-customercurated_node1700529751867 = glueContext.getSink(
-    path="s3://sparkify-bucket-gin/customer/curated/",
-    connection_type="s3",
-    updateBehavior="UPDATE_IN_DATABASE",
-    partitionKeys=[],
-    enableUpdateCatalog=True,
-    transformation_ctx="customercurated_node1700529751867",
+customercurated_node1708717547965 = glueContext.write_dynamic_frame.from_catalog(
+    frame=DropDuplicates_node1708714184661,
+    database="sparkify",
+    table_name="customer_curated",
+    additional_options={
+        "enableUpdateCatalog": True,
+        "updateBehavior": "UPDATE_IN_DATABASE",
+    },
+    transformation_ctx="customercurated_node1708717547965",
 )
-customercurated_node1700529751867.setCatalogInfo(
-    catalogDatabase="sparkify", catalogTableName="customer_curated"
-)
-customercurated_node1700529751867.setFormat("json")
-customercurated_node1700529751867.writeFrame(DropDuplicates_node1708714184661)
+
 job.commit()
