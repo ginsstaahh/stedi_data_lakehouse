@@ -21,16 +21,16 @@ spark = glueContext.spark_session
 job = Job(glueContext)
 job.init(args["JOB_NAME"], args)
 
-# Script generated for node customer trusted
-customertrusted_node1707946204192 = glueContext.create_dynamic_frame.from_options(
+# Script generated for node customer curated
+customercurated_node1707946204192 = glueContext.create_dynamic_frame.from_options(
     format_options={"multiline": False},
     connection_type="s3",
     format="json",
     connection_options={
-        "paths": ["s3://sparkify-bucket-gin/customer/trusted/"],
+        "paths": ["s3://sparkify-bucket-gin/customer/curated/"],
         "recurse": True,
     },
-    transformation_ctx="customertrusted_node1707946204192",
+    transformation_ctx="customercurated_node1707946204192",
 )
 
 # Script generated for node step trainer landing
@@ -46,16 +46,16 @@ steptrainerlanding_node1707180956057 = glueContext.create_dynamic_frame.from_opt
 )
 
 # Script generated for node SQL Query
-SqlQuery253 = """
+SqlQuery0 = """
 select * from step_trainer_landing
 join customer_trusted
 on step_trainer_landing.serialnumber = customer_trusted.serialnumber;
 """
 SQLQuery_node1708118314581 = sparkSqlQuery(
     glueContext,
-    query=SqlQuery253,
+    query=SqlQuery0,
     mapping={
-        "customer_trusted": customertrusted_node1707946204192,
+        "customer_trusted": customercurated_node1707946204192,
         "step_trainer_landing": steptrainerlanding_node1707180956057,
     },
     transformation_ctx="SQLQuery_node1708118314581",
