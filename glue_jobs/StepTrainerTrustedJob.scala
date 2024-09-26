@@ -29,10 +29,10 @@ object GlueApp {
     val args = GlueArgParser.getResolvedOptions(sysArgs, Seq("JOB_NAME").toArray)
     Job.init(args("JOB_NAME"), glueContext, args.asJava)
     // Script generated for node customer curated
-    val customercurated_node1707946204192 = glueContext.getSourceWithFormat(formatOptions=JsonOptions("""{"multiLine": "false"}"""), connectionType="s3", format="json", options=JsonOptions("""{"paths": ["s3://sparkify-bucket-gin/customer/curated/"], "recurse": true}"""), transformationContext="customercurated_node1707946204192").getDynamicFrame()
+    val customercurated_node1707946204192 = glueContext.getSourceWithFormat(formatOptions=JsonOptions("""{"multiLine": "false"}"""), connectionType="s3", format="json", options=JsonOptions("""{"paths": ["s3://stedi-data-lakehouse/customer/curated/"], "recurse": true}"""), transformationContext="customercurated_node1707946204192").getDynamicFrame()
 
     // Script generated for node step trainer landing
-    val steptrainerlanding_node1707180956057 = glueContext.getSourceWithFormat(formatOptions=JsonOptions("""{"multiLine": "false"}"""), connectionType="s3", format="json", options=JsonOptions("""{"paths": ["s3://sparkify-bucket-gin/step_trainer/landing/"], "recurse": true}"""), transformationContext="steptrainerlanding_node1707180956057").getDynamicFrame()
+    val steptrainerlanding_node1707180956057 = glueContext.getSourceWithFormat(formatOptions=JsonOptions("""{"multiLine": "false"}"""), connectionType="s3", format="json", options=JsonOptions("""{"paths": ["s3://stedi-data-lakehouse/step_trainer/landing/"], "recurse": true}"""), transformationContext="steptrainerlanding_node1707180956057").getDynamicFrame()
 
     // Script generated for node SQL Query
     val SqlQuery694: String = """select * from step_trainer_landing
@@ -46,8 +46,8 @@ object GlueApp {
     val DropFields_node1700530620637 = SQLQuery_node1708118314581.dropFields(fieldNames=Seq("email", "phone", "birthday", "serialnumber", "registrationdate", "lastupdatedate", "sharewithresearchasofdate", "sharewithpublicasofdate", "customername"), transformationContext="DropFields_node1700530620637")
 
     // Script generated for node step trainer trusted
-    val steptrainertrusted_node1700529751867 = glueContext.getSinkWithFormat(connectionType="s3", options=JsonOptions("""{"path": "s3://sparkify-bucket-gin/step_trainer/trusted/", "partitionKeys": [], "enableUpdateCatalog": true, "updateBehavior": "UPDATE_IN_DATABASE"}"""), transformationContext="steptrainertrusted_node1700529751867", format="json")
-    steptrainertrusted_node1700529751867.setCatalogInfo(catalogDatabase="sparkify", catalogTableName="step_trainer_trusted")
+    val steptrainertrusted_node1700529751867 = glueContext.getSinkWithFormat(connectionType="s3", options=JsonOptions("""{"path": "s3://stedi-data-lakehouse/step_trainer/trusted/", "partitionKeys": [], "enableUpdateCatalog": true, "updateBehavior": "UPDATE_IN_DATABASE"}"""), transformationContext="steptrainertrusted_node1700529751867", format="json")
+    steptrainertrusted_node1700529751867.setCatalogInfo(catalogDatabase="stedi", catalogTableName="step_trainer_trusted")
     steptrainertrusted_node1700529751867.writeDynamicFrame(DropFields_node1700530620637)
     Job.commit()
   }

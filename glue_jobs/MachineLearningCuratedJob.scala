@@ -29,10 +29,10 @@ object GlueApp {
     val args = GlueArgParser.getResolvedOptions(sysArgs, Seq("JOB_NAME").toArray)
     Job.init(args("JOB_NAME"), glueContext, args.asJava)
     // Script generated for node accelerometer trusted
-    val accelerometertrusted_node1708119331302 = glueContext.getSourceWithFormat(formatOptions=JsonOptions("""{"multiline": false}"""), connectionType="s3", format="json", options=JsonOptions("""{"paths": ["s3://sparkify-bucket-gin/accelerometer/trusted/"], "recurse": true}"""), transformationContext="accelerometertrusted_node1708119331302").getDynamicFrame()
+    val accelerometertrusted_node1708119331302 = glueContext.getSourceWithFormat(formatOptions=JsonOptions("""{"multiline": false}"""), connectionType="s3", format="json", options=JsonOptions("""{"paths": ["s3://stedi-data-lakehouse/accelerometer/trusted/"], "recurse": true}"""), transformationContext="accelerometertrusted_node1708119331302").getDynamicFrame()
 
     // Script generated for node step trainer trusted
-    val steptrainertrusted_node1707180956057 = glueContext.getSourceWithFormat(formatOptions=JsonOptions("""{"multiline": false}"""), connectionType="s3", format="json", options=JsonOptions("""{"paths": ["s3://sparkify-bucket-gin/step_trainer/trusted/"], "recurse": true}"""), transformationContext="steptrainertrusted_node1707180956057").getDynamicFrame()
+    val steptrainertrusted_node1707180956057 = glueContext.getSourceWithFormat(formatOptions=JsonOptions("""{"multiline": false}"""), connectionType="s3", format="json", options=JsonOptions("""{"paths": ["s3://stedi-data-lakehouse/step_trainer/trusted/"], "recurse": true}"""), transformationContext="steptrainertrusted_node1707180956057").getDynamicFrame()
 
     // Script generated for node SQL Query
     val SqlQuery2684: String = """select * from accelerometer
@@ -43,8 +43,8 @@ object GlueApp {
     )
 
     // Script generated for node ML trusted
-    val MLtrusted_node1700529751867 = glueContext.getSinkWithFormat(connectionType="s3", options=JsonOptions("""{"path": "s3://sparkify-bucket-gin/machine_learning/curated/", "partitionKeys": [], "enableUpdateCatalog": true, "updateBehavior": "UPDATE_IN_DATABASE"}"""), transformationContext="MLtrusted_node1700529751867", format="json")
-    MLtrusted_node1700529751867.setCatalogInfo(catalogDatabase="sparkify", catalogTableName="machine_learning_curated")
+    val MLtrusted_node1700529751867 = glueContext.getSinkWithFormat(connectionType="s3", options=JsonOptions("""{"path": "s3://stedi-data-lakehouse/machine_learning/curated/", "partitionKeys": [], "enableUpdateCatalog": true, "updateBehavior": "UPDATE_IN_DATABASE"}"""), transformationContext="MLtrusted_node1700529751867", format="json")
+    MLtrusted_node1700529751867.setCatalogInfo(catalogDatabase="stedi", catalogTableName="machine_learning_curated")
     MLtrusted_node1700529751867.writeDynamicFrame(SQLQuery_node1708120300334)
     Job.commit()
   }

@@ -30,10 +30,10 @@ object GlueApp {
     val args = GlueArgParser.getResolvedOptions(sysArgs, Seq("JOB_NAME").toArray)
     Job.init(args("JOB_NAME"), glueContext, args.asJava)
     // Script generated for node accelerometer landing zone
-    val accelerometerlandingzone_node1700529679236 = glueContext.getCatalogSource(database="sparkify", tableName="accelerometer_landing", transformationContext="accelerometerlandingzone_node1700529679236").getDynamicFrame()
+    val accelerometerlandingzone_node1700529679236 = glueContext.getCatalogSource(database="stedi", tableName="accelerometer_landing", transformationContext="accelerometerlandingzone_node1700529679236").getDynamicFrame()
 
     // Script generated for node customer trusted
-    val customertrusted_node1700529677557 = glueContext.getCatalogSource(database="sparkify", tableName="customer_trusted", transformationContext="customertrusted_node1700529677557").getDynamicFrame()
+    val customertrusted_node1700529677557 = glueContext.getCatalogSource(database="stedi", tableName="customer_trusted", transformationContext="customertrusted_node1700529677557").getDynamicFrame()
 
     // Script generated for node SQL Query
     val SqlQuery2717: String = """select customername, email, phone, birthday, serialnumber, registrationdate, lastupdatedate, sharewithresearchasofdate, sharewithpublicasofdate
@@ -48,7 +48,7 @@ object GlueApp {
     val DropDuplicates_node1708714184661 = DynamicFrame(SQLQuery_node1708714281489.toDF().dropDuplicates(), glueContext)
 
     // Script generated for node customer curated
-    val customercurated_node1708717547965 = glueContext.getCatalogSink(database="sparkify", tableName="customer_curated",additionalOptions=JsonOptions("""{"enableUpdateCatalog": true, "updateBehavior": "UPDATE_IN_DATABASE"}"""), transformationContext="customercurated_node1708717547965").writeDynamicFrame(DropDuplicates_node1708714184661)
+    val customercurated_node1708717547965 = glueContext.getCatalogSink(database="stedi", tableName="customer_curated",additionalOptions=JsonOptions("""{"enableUpdateCatalog": true, "updateBehavior": "UPDATE_IN_DATABASE"}"""), transformationContext="customercurated_node1708717547965").writeDynamicFrame(DropDuplicates_node1708714184661)
 
     Job.commit()
   }
