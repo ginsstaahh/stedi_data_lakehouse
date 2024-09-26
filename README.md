@@ -1,6 +1,3 @@
 # Introduction
-This project creates a data lakehouse on AWS in an S3 bucket to store sensor data and customer data used for training a machine learning model downstream.  This data lakehouse is an improved version of a data lake with an additional SQL metadata layer and filtered zones.
-
-# Details
-Data is stored as JSON within the lakehouse and queried using Athena.
-Glue jobs perform ETL's to first pull raw data from source, and then to more filtered and curated zones within the lakehouse.  The zones are separated into landing, trusted, and curated folders.
+This project creates a data lakehouse on AWS in an S3 bucket to store sensor data and customer data used for a machine learning model downstream.  This data lakehouse is an improved version of a data lake with an additional SQL metadata layer and filtered zones.  This project was created for Udacity's Data Engineering Nanodegree.  After completing the Nanodegree, additional work was done to improve efficiency and automation; Glue jobs were changed to use Scala and 
+the jobs are now sequenced using Airflow.
