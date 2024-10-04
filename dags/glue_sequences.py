@@ -13,7 +13,6 @@ default_args = {
     'retries': 1,
     'retry_delay': timedelta(minutes=1),
     'iam_role_arn': glue_arn,
-    'glue_job_args': {'--job-language': 'scala'},
     'create_job_kwargs': {"GlueVersion": "4.0", "NumberOfWorkers": 2, "WorkerType": "G.1X"}
 }
 
@@ -32,13 +31,13 @@ with DAG('glue_job_dag',
     customer_landing_to_trusted = GlueJobOperator(
         task_id='customer_landing_to_trusted',
         job_name='customer_landing_to_trusted_job',
-        script_location=f's3://{script_bucket}/scripts/Customer_Landing_to_Trusted_Job.scala',
+        script_location=f's3://{script_bucket}/scripts/CustomerLandingToTrustedJob.scala',
     )
 
     customer_trusted_to_curated = GlueJobOperator(
         task_id='customer_trusted_to_curated',
         job_name='customer_trusted_to_curated_job',
-        script_location=f's3://{script_bucket}/scripts/Customer_Trusted_to_Curated.scala',
+        script_location=f's3://{script_bucket}/scripts/CustomerTrustedToCuratedJob.scala',
     )
 
     step_trainer_trusted = GlueJobOperator(
